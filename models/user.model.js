@@ -4,7 +4,7 @@ const uuidv1 = require("uuid/v1");
 
 const { Schema } = mongoose;
 
-const userSchema = new Schema({
+const UserSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -41,7 +41,7 @@ const userSchema = new Schema({
     }
 }, {timestamps: true});
 
-userSchema.virtual("password")
+UserSchema.virtual("password")
     .set(function(password) {
         this._password = password;
         this.salt = uuidv1();
@@ -51,7 +51,7 @@ userSchema.virtual("password")
         return this._password;
     })
 
-userSchema.method = {
+UserSchema.method = {
     securePassword: function(plainPassword) {
         if(!plainPassword) return "";
         try {
@@ -67,4 +67,4 @@ userSchema.method = {
     }
 }
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", UserSchema);
