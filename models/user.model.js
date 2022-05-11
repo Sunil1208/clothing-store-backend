@@ -68,7 +68,7 @@ UserSchema.methods = {
         }
     },
     authenticate: function(plainPassword) {
-        this.securePassword(plainPassword) === this.encry_password;
+        return this.securePassword(plainPassword) === this.encry_password;
     }
 };
 
