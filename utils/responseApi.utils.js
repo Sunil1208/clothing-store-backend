@@ -1,5 +1,7 @@
 /**
  * @desc This file contain Success and Error response for sending to client /user
+ * 
+ * @author Sunil Kumar (skmy03@gmail.com)
  */
 
 /**
@@ -27,6 +29,7 @@ exports.success = (statusCode, message, data) => {
  * 
  * @param {string} message
  * @param {number} statusCode
+ * @param {object | array} errors
  */
 
 exports.error = (statusCode, message, errors=null) => {
