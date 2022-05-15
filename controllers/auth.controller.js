@@ -4,13 +4,7 @@ var expressJwt = require("express-jwt");
 
 const User = require("../models/user.model");
 
-
 const { success, error, validation } = require("../utils/responseApi.utils");
-
-exports.signout = (req, res) => {
-    const response = getStandardResponse(200, "Sign up success", {});
-    return res.json(response);
-};
 
 exports.signup = (req, res) => {
     const errors = validationResult(req);
@@ -76,4 +70,11 @@ exports.signin = (req, res) => {
                 }));
     });
 
+};
+
+exports.signout = (req, res) => {
+    res.clearCookie("token");
+    return res
+            .status(200)
+            .json(success(res.statusCode, "User signout success!", {}))
 };
