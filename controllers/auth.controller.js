@@ -78,3 +78,30 @@ exports.signout = (req, res) => {
             .status(200)
             .json(success(res.statusCode, "User signout success!", {}))
 };
+
+// Protected routes
+exports.isSignedIn = expressJwt({
+    secret: process.env.SECRET_KEY,
+    userProperty: "auth"
+});
+
+// Custom Middlewares
+
+exports.isAuthenticated = (req, res, next) => {
+    let checker = req.profile && req.auth && req.profile._id === req.auth._id;
+    if(!checker) {
+        return res
+                .status(403)
+                .json(error(res.statusCode, "ACCESS DENIED"));
+    }
+    next();
+};
+
+exports.isAdmin = (req, res, next) => {
+    if(req.profile.role === 0){
+        return res
+                .status(403)
+                .json(error(res.statusCode, "You are not ADMIN. Access denied!"))
+    }
+    next();
+};
